@@ -1,9 +1,15 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+
 from .models import task1, task2
 from django.http import JsonResponse
 from .serializers import get_db,get
+
+from .models import task1,yes_complaines_login
+from django.http import JsonResponse
+from .serializers import get_db,login_serializers
+
 from rest_framework import viewsets
 
 from task1_app import serializers
@@ -25,6 +31,7 @@ def update(request,id):
         serializers_class.save()
     return Response(serializers_class.data)
 
+##jeeva
 
 
 class taskViewset(viewsets.ModelViewSet):
@@ -38,6 +45,16 @@ class taskViewset(viewsets.ModelViewSet):
         print(serializer_class.data)
         return Response(serializer_class.data)
     
+
+class loginViewset(viewsets.ModelViewSet):
+    queryset=yes_complaines_login.objects.all()
+    serializer_class=login_serializers
+
+    def list(self,request):
+        user_name=request.GET['user_name']
+        query=yes_complaines_login.objects.filter(user_name=user_name)
+        serializer_class=login_serializers(query,many=True)
+        return Response(serializer_class.data)
 
 
 @api_view(['POST'])
