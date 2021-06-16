@@ -81,7 +81,7 @@ DATABASES = {
         'OPTIONS': {'charset': 'utf8mb4'},
         'NAME': 'djangodb',
         'USER': 'root',
-        'PASSWORD': 'rootjee',
+        'PASSWORD': 'rootvi',
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'OPTIONS': {

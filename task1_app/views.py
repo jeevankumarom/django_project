@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .models import task1
+from .models import task1, task2
 from django.http import JsonResponse
-from .serializers import get_db
+from .serializers import get_db,get
 from rest_framework import viewsets
+
+from task1_app import serializers
 
 @api_view(['POST'])
 def task(request):
@@ -38,7 +40,27 @@ class taskViewset(viewsets.ModelViewSet):
     
 
 
+@api_view(['POST'])
+def goto(request):
+    query=task2.objects.all()
+    print(query)
+    serializer_class=get(data=request.data)
+    
+    if serializer_class.is_valid():
+        serializer_class.save()
+    return Response(serializer_class.data)
 
+@api_view(['post'])
+def file_upload(request):
+    if request.method == 'POST':
+        
+        forr=request.POST['forr']
+        
+        file=request.FILES['file']
+        
+        print(file,forr)
+
+    return Response("file uploaded")
 
 
 
